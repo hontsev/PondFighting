@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'match/showmatches'
 
   get 'match/showdetail'
+  get 'match/showdetail/:id' => 'match#showdetail'
 
   get 'match/showreplay'
 

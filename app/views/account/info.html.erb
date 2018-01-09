@@ -131,8 +131,8 @@
 				  </div>
 			  <% else %>
 			  
-               <%= for log in @logs do %>
-			   <div class="post">
+               <% for log in @logs do %>
+			     <div class="post">
 				   <div class="user-block">
                     <img class="img-circle img-bordered-sm" src="<%=log.user.avatar%>" alt="user image">
                         <span class="username">
@@ -143,8 +143,9 @@
                   <!-- /.user-block -->
                   <p>
                     <%=log.message%>
+					<a href="<%=match_showdetail_path+"/"+log.fight_id.to_s%>">查看详情</a>
                   </p>
-				  </div>
+				 </div>
 				<% end %>
 			<%end%>
 

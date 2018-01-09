@@ -3,7 +3,7 @@ class DuckController < ApplicationController
   protect_from_forgery :except => :savescript  
   
   def myscript
-    @user=User.find_by(id:session[:user_id])
+    @user=User.find_by(id:session[:user_id]).order(updated_at: :desc)
 	@myducks=@user.myducks
   end
 
