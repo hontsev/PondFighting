@@ -89,7 +89,23 @@ function setTime(time){
  
  
 
- 
+ function getId(name){
+    t=new Array();
+	<% for duck in @ducks %>
+	  dr=new Array();
+	  dr.push('<%=duck.id%>');
+	  dr.push('<%=duck.name%>');
+	  t.push(dr);
+	<%end%>
+    
+	
+	for(index in t){
+	  if(t[index][1]==name){
+	    return t[index][0];
+	  }
+	}
+	return '';
+ }
 
 function gameover(){
 	//console.log(Pond.Battle.RANK);
@@ -98,19 +114,21 @@ function gameover(){
 	
 	//id,time,hp,dmg
 	<% for duck in @ducks %>
-	  dr=new Array();
-	  dr.push(<%=duck.id%>);
-	  dr.push(0);
-	  dr.push(0);
-	  dr.push(0);
-	  result.push(dr);
+
 	<%end%>
 	
 	for(index in Pond.Battle.RANK){
+		  
+	  
 		duck=Pond.Battle.RANK[index];
-		result[index][1]=0;
-		result[index][2]=100-duck.damage;
-		result[index][3]=0;
+		id=getId(duck.name);
+		
+		dr=new Array();
+	    dr.push(id);
+	    dr.push(0);
+	    dr.push(100-duck.damage);
+	    dr.push(0);
+	    result.push(dr);
 	}
 	
 	//console.log(result);
@@ -150,7 +168,7 @@ function gameover(){
 	
 	result=JSON.stringify(result);
 
-	
+	console.log(result);
 	$.ajax({
 		type:"POST",
 		url:"<%=match_fightover_path%>",

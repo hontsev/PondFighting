@@ -1,6 +1,17 @@
-<h3>修改个人资料</h3>
-<br>
-<% if flash[:danger] %>
+
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        修改个人资料
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <% if flash[:danger] %>
   <p class="box"><%= flash[:danger] %></p>
 <%end %>
 
@@ -28,9 +39,22 @@
         <!-- /.col -->
         <div class="col-xs-6">
           <button type="submit" class="btn btn-success btn-block btn-flat">保存</button>
+		  <button type="button" class="btn btn-default btn-block btn-flat" onclick="javascript:history.go(-1);">返回</button>
         </div>
         <!-- /.col -->
       </div>
 
   
 <% end %>
+
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>
+<!-- ./wrapper -->
+
+
+

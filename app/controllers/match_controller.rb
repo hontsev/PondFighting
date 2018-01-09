@@ -57,7 +57,7 @@ class MatchController < ApplicationController
 	    return
 	  end
 	  fight=Fight.new
-	  fight.type = 1
+	  fight.tag = 1
 	  fight.match=match
 	  fight.user=user
       fight.save
@@ -89,11 +89,28 @@ class MatchController < ApplicationController
 		  draw=false
 		  if result1.hp_left == result2.hp_left
 		    draw=true
+			win=false
 		  elsif result1.hp_left>result2.hp_left
 		    win=true
+			draw=false
 		  else 
 		    win=false
+			draw=false
 		  end
+		  
+		  # 修改duck的自己的战绩记录
+		  if draw
+		    duck1.draw_count+=1
+			duck2.draw_count+=1
+		  elsif win
+		    duck1.win_count+=1
+			duck2.lose_count+=1
+		  else
+		    duck1.lose_count+=1
+			duck2.win_count+=1
+		  end
+		  duck1.save
+		  duck2.save
 
 			# 挑战者
 			str="用"+duck1.name+"挑战了"+duck2.user.nickname+"的"+duck2.name+"，"

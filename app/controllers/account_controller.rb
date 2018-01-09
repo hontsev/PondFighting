@@ -12,6 +12,7 @@ class AccountController < ApplicationController
 	  @user.name=params[:uid]
 	  @user.nickname=@user.name
 	  @user.email=params[:uemail]
+	  @user.avatar="/images/avatar_default.jpg"
 	  pw1=params[:upw1]
 	  pw2=params[:upw2]
 	  if pw1!=pw2 
@@ -60,7 +61,7 @@ class AccountController < ApplicationController
 	if @user.nil?
 	  redirect_to account_info_path
 	else 
-	  @logs=@user.user_logs
+	  @logs=@user.user_logs.order(updated_at: :desc)
 	  @ducknum=@user.duck_number
 	  @winrate=@user.win_rate
 	  @fightnum=@user.fight_number

@@ -1,2 +1,84 @@
-<h1>Match#showdetail</h1>
-<p>Find me in app/views/match/showdetail.html.erb</p>
+
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        比赛详情
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <% if flash[:danger] %>
+  <p class="box"><%= flash[:danger] %></p>
+<%end %>
+
+
+<%= form_for(:account, url: account_changepw_path, method: :post, html: {role: 'form'}) do |f| %>
+	  <div class="form-group has-feedback">
+        <label>发起人： <%=@match.user.nickname%> </label>
+      </div>
+	  <div class="form-group has-feedback">
+        <label>类型： <%=@match.tag%>1v1对战 </label>
+      </div>
+      <div class="form-group has-feedback">
+        <label>开始时间： <%=@match.created_at%> </label>
+      </div>
+	  <div class="form-group has-feedback">
+        <label>结束时间： <%=@match.updated_at%> </label>
+      </div>
+	  <div class="form-group has-feedback">
+        <label>比赛结果： </label>
+		<% count=1 %>
+		<% for fight in @match.fights %>
+		<br>场次<%=count%><%count+=1%>：
+		
+		
+		    <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>对战者</th>
+			  <th>作者</th>
+			  <th>存活时间</th>
+			  <th>生命剩余</th>
+			  <th>造成伤害</th>
+            </tr>
+            </thead>
+            <tbody>
+			<% for r in fight.fight_results %>
+			<tr>
+				<td><%=r.duck.name%></td>
+				<td><%=r.duck.user.nickname%></td>
+				<td><%=r.live_time%></td>
+				<td><%=r.hp_left%>%</td>
+				<td><%=r.dmg%>%</td>
+			</tr>
+			<%end%>
+			
+            </tbody>
+          </table>
+		 <%end%>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+       <button type="button" class="btn btn-default btn-block btn-flat" onclick="javascript:history.go(-1);">返回</button>
+	   </div>
+        <!-- /.col -->
+      </div>
+
+  
+<% end %>
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>
+<!-- ./wrapper -->
+
