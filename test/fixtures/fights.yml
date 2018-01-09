@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 1
+  belong_match: 1
+  user_id: 1
+  replay: MyString
+
+two:
+  type: 1
+  belong_match: 1
+  user_id: 1
+  replay: MyString

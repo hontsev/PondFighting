@@ -1,0 +1,79 @@
+<body class="hold-transition register-page" style="background-image:url('bkg.jpg')">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="#"><b>池塘大战 - 登录</b></a>
+  </div>
+   <style>
+        html {
+            position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: url(bkg.jpg) no-repeat #000;
+			background-size: cover;
+			z-index: -1;
+        }
+</style>
+  <div class="register-box-body">
+	<% if flash[:danger] %>
+  <p class="box"><%= flash[:danger] %></p>
+<%end %>
+	
+	
+	
+	
+	
+	<%= form_for(:account, url: account_login_path, method: :post, html: {role: 'form'}) do |f| %>
+	  <div class="form-group has-feedback">
+        <input type="text" name='uid' class="form-control" placeholder="登录名">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" name='upw' class="form-control" placeholder="密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-success btn-block btn-flat">登录</button>
+        </div>
+        <!-- /.col -->
+      </div>
+	   <div class="row" style="text-align:center;">
+	   <br>
+	   <%= link_to("新用户注册", account_regist_path) %>
+			
+      </div>
+
+  
+<% end %>
+	
+
+<!--
+    <div class="social-auth-links text-center">
+      <p>- OR -</p>
+      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+        Facebook</a>
+      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+        Google+</a>
+    </div>
+-->
+
+   
+  </div>
+  <!-- /.form-box -->
+</div>
+<script>
+<!-- /.register-box -->
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>

@@ -1,0 +1,171 @@
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        个人信息
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+		  <a href='<%=duck_myscript_path%>'>
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3><%=@ducknum %></h3>
+
+              <p>脚本个数</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+          </div>
+		  </a>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+				<h3><%=@winrate %><sup style="font-size: 20px">%</sup></h3>
+              <p>胜率</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3><%=@fightnum %></h3>
+
+              <p>比赛次数</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" src="<%if @user.avatar.nil? %><%='/images/avatar_default.jpg'%><%else%><%=@user.avatar %><%end%>" alt="User profile picture">
+
+              <h3 class="profile-username text-center"><%=@user.nickname%></h3>
+			  <p class="text-center"><%=@user.introduce%></p>
+				
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>脚本个数</b> <a class="pull-right"><%=@ducknum %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>胜率</b> <a class="pull-right"><%=@winrate %>%</a>
+                </li>
+                <li class="list-group-item">
+                  <b>比赛次数</b> <a class="pull-right"><%=@fightnum %></a>
+                </li>
+              </ul>
+			  <% if @user.id == session[:user_id] %>
+				
+					<a href="<%=account_editinfo_path%>" class="btn btn-primary btn-block"><b>修改个人资料</b></a>
+					<a href="<%=account_changepw_path%>" class="btn btn-primary btn-block"><b>修改密码</b></a>
+			  <% end %>
+              
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+		  <!--
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">个人介绍</h3>
+            </div>
+            <div class="box-body">
+              <p class="text-muted">
+                 <%=@user.introduce%>
+              </p>
+            </div>
+          </div>
+		  -->
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">近期动态</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+			  <% if @logs.size <= 0 %>
+			    <div class="post">
+				   <div class="user-block">
+                    
+                        <span class="username">
+                          
+                        </span>
+                    <span class="description"></span>
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    暂无新动态
+                  </p>
+				  </div>
+			  <% else %>
+			  
+               <%= for log in @logs do %>
+			   <div class="post">
+				   <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="<%=log.user.avatar%>" alt="user image">
+                        <span class="username">
+                          <a href="<%=account_info_path + "/" + log.user.id.to_s %>"><%=log.user.nickname%></a>
+                        </span>
+                    <span class="description"><%=log.created_at%></span>
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    <%=log.message%>
+                  </p>
+				  </div>
+				<% end %>
+			<%end%>
+
+                <!-- /.post -->
+
+              </div>              
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>
+<!-- ./wrapper -->
+
+</body>

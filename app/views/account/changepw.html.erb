@@ -1,0 +1,34 @@
+<h3>修改密码</h3>
+<br>
+<% if flash[:danger] %>
+  <p class="box"><%= flash[:danger] %></p>
+<%end %>
+
+<%= form_for(:account, url: account_changepw_path, method: :post, html: {role: 'form'}) do |f| %>
+	  <div class="form-group has-feedback">
+        <label>登录名： <%=session[:user_name]%> </label>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" name='oldpw' class="form-control" placeholder="旧密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+	   <div class="form-group has-feedback">
+        <input type="password" name='newpw1' class="form-control" placeholder="新密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+	  	   <div class="form-group has-feedback">
+        <input type="password" name='newpw2' class="form-control" placeholder="重复新密码">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-success btn-block btn-flat">确定修改密码</button>
+        </div>
+        <!-- /.col -->
+      </div>
+
+  
+<% end %>

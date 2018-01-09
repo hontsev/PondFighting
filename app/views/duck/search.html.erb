@@ -1,0 +1,142 @@
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        脚本列表
+        <small>大家公开的小鸭子脚本</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      
+      <!-- Main row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>名字</th>
+              <th>作者</th>
+              <th>发布时间</th>
+			  <th>胜率</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+			
+			<% for d in @ducks %>
+			<tr>
+				<td><%=d.name%></td>
+				<td><a href='<%=account_info_path+"/"+d.user.id.to_s%>'><%=d.user.nickname%></a></td>
+				<td><%=d.created_at%></td>
+				<td><%=d.win_rate%>%</td>
+				<td><a class='btn btn-warning'  href='javascript:chooseSelfDuck("<%=d.id%>");'>比试</a>
+				<% if d.user.id==session[:user_id]%>
+					<a class='btn btn-success'  href='<%=duck_editscript_path+"/"+d.id.to_s%>'>编辑</a>
+				<%end%>
+				</td>
+				
+				
+			</tr>
+			<%end%>
+			
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+		
+
+      </div>
+      <!-- /.row -->
+	  
+	  
+
+	
+	
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- 
+  {include file="footer" /}-->
+
+  
+</div>
+<!-- ./wrapper -->
+
+	  <div class="modal fade" id="chooseDuck" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择你要作战的小鸭子AI
+				</h4>
+			</div>
+			<div class="modal-body">
+				<select class="form-control" id="myduck">
+				    <% for d in @myducks %>
+					
+						 <option value='<%=d.id%>'><%=d.name%></option>
+					<%end%>
+				   
+				</select>
+			</div>
+			<div class="modal-footer">
+				<a href="javascript:startMatch();" class="btn btn-success">开始比赛</a>
+				<a href="#" class="btn" data-dismiss="modal">关闭</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+
+	
+<script>
+
+function post(URL, PARAMS) {
+  console.log(URL);
+  var temp = document.createElement("form");
+  temp.action = URL;
+  temp.method = "post";
+  temp.style.display = "none";
+  for (var x in PARAMS) {
+    var opt = document.createElement("textarea");
+    opt.name = x;
+    opt.value = PARAMS[x];
+    // alert(opt.name)
+    temp.appendChild(opt);
+  }
+  document.body.appendChild(temp);
+  temp.submit();
+  return temp;
+}
+
+var targetid;
+function startMatch(){
+	myid=$("select#myduck").val();console.log(myid);
+	post('<%=match_pondmatch_path%>',{ id1:myid,id2:window.targetid });
+	return false;
+}
+
+function chooseSelfDuck(id){
+	if($("select#myduck").val()==null){
+	
+		// dont have any duck
+		alert("你还没有创建过任何脚本，所以无法进行比赛。去“训练塘”创建你的小鸭子脚本吧！");
+		return false;
+	}
+	window.targetid=id;
+	$("#chooseDuck").modal('show');  
+	return false;
+}
+
+function editSelfDuck(id){
+	get('<%=duck_editscript_path+"/"%>'+id);
+	return false;
+}
+
+</script>

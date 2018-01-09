@@ -1,0 +1,36 @@
+<h3>修改个人资料</h3>
+<br>
+<% if flash[:danger] %>
+  <p class="box"><%= flash[:danger] %></p>
+<%end %>
+
+<%= form_for(:account, url: account_editinfo_path, method: :post, html: {role: 'form'}) do |f| %>
+	  <div class="form-group has-feedback">
+        登录名： <label><%=@user.name%></label>
+      </div>
+      <div class="form-group has-feedback">
+        昵称： 
+		<input type="text" name='unickname' value='<%=@user.nickname%>' class="form-control" placeholder="填写您的昵称">
+      </div>
+	   <div class="form-group has-feedback">
+       邮箱： 
+	   		<input type="text" name='uemail' value='<%=@user.email%>' class="form-control" placeholder="填写您的邮箱">
+
+      </div>
+	  	<div class="form-group has-feedback">
+               个人介绍： 
+	   		<input type="text" name='uintroduce' value='<%=@user.introduce%>' class="form-control" placeholder="填写您的个人介绍">
+
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-success btn-block btn-flat">保存</button>
+        </div>
+        <!-- /.col -->
+      </div>
+
+  
+<% end %>

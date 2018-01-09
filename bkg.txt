@@ -1,0 +1,23 @@
+  <%= javascript_include_tag 'tooltip', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'AdminLTE.min', media: 'all', 'data-turbolinks-track': 'reload' %>
+  
+  <%= javascript_include_tag 'popover', 'data-turbolinks-track': 'reload' %>
+  
+  
+  
+  
+  //= require jquery3 
+//= require bootstrap
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+
+
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

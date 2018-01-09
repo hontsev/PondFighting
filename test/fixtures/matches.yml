@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  is_end: false
+  user_id: 1
+
+two:
+  is_end: false
+  user_id: 1

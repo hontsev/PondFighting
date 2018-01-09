@@ -1,0 +1,240 @@
+<head>
+  <link rel="stylesheet" href="/common/common.css">
+  <link rel="stylesheet" href="/pond/style.css">
+  <link rel="stylesheet" href="/pond/duck/style.css">
+</head>
+
+
+<div class="wrapper">
+
+	
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <%=@duck1.name%>&nbsp;&nbsp;&nbsp;&nbsp;VS&nbsp;&nbsp;&nbsp;&nbsp;<%=@duck2.name%>
+      </h1>
+		<p id="leftTime">剩余时间 : 30 秒</p>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+	    <div class="col-md-4"  id="pond_game_content">
+		
+		</div><div show="hidden" id="blockly"></div>
+		<div class="col-md-8">
+			<div class="box box-success direct-chat direct-chat-success" >
+                <div class="box-header with-border">
+                  <h3 class="box-title">战斗过程</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" >
+                  <div class="direct-chat-messages" id="matchdetail" style="min-height:370px">
+                     <!-- <div class="direct-chat-info clearfix">战斗234</div> -->
+					 
+                <!-- /.box-footer-->
+				  </div>
+				  <!--/.direct-chat -->
+				</div>
+			</div>
+		  </div>
+		</div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- 
+  {include file="footer" /}-->
+
+  
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<script>
+
+var height=350;
+function print(str){
+	$("#matchdetail").append('<div class="direct-chat-info clearfix">'+str+'</div>');
+	height+=20;
+	$("#matchdetail").scrollTop(height); 
+	
+}
+
+function setTime(time){
+	if(time<=0)time=0;
+	$("#leftTime").text("剩余时间: "+time+" 秒")
+}
+
+
+ var HtmlUtil = {
+      htmlEncode:function (html){
+         var temp = document.createElement ("div");
+          (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+          var output = temp.innerHTML;
+         temp = null;
+         return output;
+     },
+     htmlDecode:function (text){
+         var temp = document.createElement("div");
+         temp.innerHTML = text;
+         var output = temp.innerText || temp.textContent;
+         temp = null;
+         return output;
+     }
+ };
+ 
+ 
+
+ 
+
+function gameover(){
+	//console.log(Pond.Battle.RANK);
+	
+	result=new Array();
+	
+	//id,time,hp,dmg
+	<% for duck in @ducks %>
+	  dr=new Array();
+	  dr.push(<%=duck.id%>);
+	  dr.push(0);
+	  dr.push(0);
+	  dr.push(0);
+	  result.push(dr);
+	<%end%>
+	
+	for(index in Pond.Battle.RANK){
+		duck=Pond.Battle.RANK[index];
+		result[index][1]=0;
+		result[index][2]=100-duck.damage;
+		result[index][3]=0;
+	}
+	
+	//console.log(result);
+	
+	
+	
+    winner=Pond.Battle.RANK[0];
+	winnerIndex=winner.visualizationIndex;
+	winnerName=winner.name;
+	winnerHP=100-winner.damage;
+	
+	loser=Pond.Battle.RANK[1];
+	loserIndex=loser.visualizationIndex;
+	loserName=loser.name;
+	loserHP=100-loser.damage;
+	
+	winnerHP=Math.round(winnerHP * 100) / 100;
+	loserHP=Math.round(loserHP * 100) / 100;
+	
+	if(winnerHP>loserHP){
+		//someone win
+		print((winnerIndex+1)+"号选手："+winnerName+" 取得胜利！给对手造成"+(100-loserHP)+"点伤害，自己还剩下"+winnerHP+"点生命值");
+		switch(winnerIndex+1){
+			case 1:score1=1;score2=0;break;
+			case 2:score1=0;score2=1;break;
+			default:score1=0;score2=0;break;
+		}
+	}else{
+		//draw match
+		print((winnerIndex+1)+"号选手："+winnerName+" 和"+(loserIndex+1)+"号选手："+loserName+" 菜鸡互啄，打了个平手。");
+		score1=0;
+		score2=0;
+	}
+	id1=<%=@duck1.id%>;
+	id2=<%=@duck2.id%>;
+    
+	
+	result=JSON.stringify(result);
+
+	
+	$.ajax({
+		type:"POST",
+		url:"<%=match_fightover_path%>",
+		dataType:"json",
+		data:{
+			id1:id1,
+			id2:id2,
+			score1:score1,
+			score2:score2,
+			all:result
+			},
+		success:function (msg)
+		{
+			print("(比赛结束。请自行返回之前的页面)");
+			return false;
+
+		},
+		error:function (msg)
+		{
+			console.log(msg);
+			print("(比赛结束。请自行返回之前的页面)");
+			return false;
+
+		}
+	});
+}
+
+ function getUserScript(script,isBlock){
+        script=HtmlUtil.htmlDecode(script);
+ 		//console.log(script);
+         if (isBlock==1) {
+		    
+		    var xml = Blockly.Xml.textToDom(script);
+		    Blockly.Xml.domToWorkspace(xml, BlocklyGames.workspace);
+			xmlData=Blockly.JavaScript.workspaceToCode(BlocklyGames.workspace);
+           return xmlData.replace(new RegExp("'",'gm'),'');
+         } else {
+           return script.replace(new RegExp("'",'gm'),'"');
+		   }
+ 
+ }
+
+
+function initMatch(){
+BlocklyGames.workspace = Blockly.inject('blockly',
+      {'media': '/third-party/blockly/media/',
+       'rtl': false,
+       'toolbox': false,
+       'trashcan': false,
+       'zoom': null});
+	   
+	   
+	script1=getUserScript('<%=@duck1.script%>',<%=@duck1.is_block%>);
+	//if({$isBlock1})
+	script2=getUserScript('<%=@duck2.script%>',<%=@duck2.is_block%>);
+	name1='<%=@duck1.name%>';
+	name2='<%=@duck2.name%>';
+	//console.log(script1);
+	//console.log(script2);
+	Pond.Battle.addAvatar(name1, script1, new goog.math.Coordinate(20, 50), 0);
+	Pond.Battle.addAvatar(name2, script2, new goog.math.Coordinate(80, 50), 0);
+	
+	var time=3;
+  var timer = setInterval(function (){
+  
+	if(time<=0){
+		print("开始比赛");
+	}else{
+		print("还剩"+time+"秒开始比赛");
+	}
+    
+	time-=1;
+	
+	if(time<=-1){
+		
+		clearInterval(timer);
+		Pond.execute();
+		return;
+	}
+    
+  }, 1000);
+}
+
+</script>
+  <script src="/third-party/ace/ace.js"></script>
+  <script src="/common/boot.js"></script>
+   <script src="/common/duckchange.js"></script>

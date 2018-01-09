@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fight_id: 1
+  user_id: 1
+  live_time: 1.5
+  hp_left: 1.5
+  dmg: 1.5
+
+two:
+  fight_id: 1
+  user_id: 1
+  live_time: 1.5
+  hp_left: 1.5
+  dmg: 1.5
