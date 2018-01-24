@@ -3,7 +3,8 @@
 ## 简介
 
 - 本项目为基于Ruby On Rails的“池塘大战”多人脚本对战网站。
-- 游戏是基于Google的Blockly Games: Pond（“池塘”）游戏（游戏地址：https://blockly-games.appspot.com/）而开发的一个多人对战版本。本项目主要围绕多人脚本对战的基本功能，实现了用户个人信息管理、个人脚本管理、多种对战的玩法、个人比赛数据统计等功能。
+- 游戏基于Google的Blockly Games: Pond（“池塘”）游戏。游戏地址：https://blockly-games.appspot.com/pond-duck
+- 本项目主要围绕Pond游戏，开发了多人脚本对战的基本功能，实现了用户个人信息管理、个人脚本管理、多种对战的玩法、个人比赛数据统计等功能。
 - 演示地址：https://pondfighting-hontsev.c9users.io
 
 ## 说明
