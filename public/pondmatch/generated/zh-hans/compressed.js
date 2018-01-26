@@ -55,7 +55,7 @@
       "/third-party/soyutils_usegoog.js",
       "/generated/zh-hans/soy.js",
       "/"+name+"/generated/zh-hans/soy.js",
-      "/pond/duck/generated/zh-hans/soy.js",
+      //"/pond/duck/generated/zh-hans/soy.js",
       "/third-party/blockly/core/blocks.js",
       "/third-party/blockly/core/names.js",
       "/third-party/blockly/core/constants.js",

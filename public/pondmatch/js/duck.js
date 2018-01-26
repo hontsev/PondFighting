@@ -31,7 +31,7 @@ goog.require('BlocklyInterface');
 goog.require('Pond');
 goog.require('Pond.Battle');
 goog.require('Pond.Blocks');
-goog.require('Pond.Duck.soy');
+//goog.require('Pond.Duck.soy');
 goog.require('Pond.Visualization');
 goog.require('goog.events');
 goog.require('goog.ui.Tab');
@@ -45,13 +45,11 @@ BlocklyGames.NAME = 'pond-duck';
  * the program source (false).
  * @private
  */
-Pond.Duck.blocksEnabled_ = true;
 
 /**
  * ACE editor fires change events even on programatically caused changes.
  * This property is used to signal times when a programatic change is made.
  */
-Pond.Duck.ignoreEditorChanges_ = true;
 
 /**
  * Initialize Ace and the pond.  Called on page load.
