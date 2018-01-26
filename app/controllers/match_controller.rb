@@ -109,6 +109,8 @@ class MatchController < ApplicationController
 		    duck1.lose_count+=1
 			duck2.win_count+=1
 		  end
+		  duck1.record_timestamps=false
+		  duck2.record_timestamps=false
 		  duck1.save
 		  duck2.save
 
