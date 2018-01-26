@@ -197,6 +197,7 @@ function gameover(){
 }
 
  function getUserScript(script,isBlock){
+		script=script.replace(/\\n/g, "\n").replace(/\\r/g, "\r")
         script=HtmlUtil.htmlDecode(script);
  		//console.log(script);
          if (isBlock==1) {

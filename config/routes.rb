@@ -25,8 +25,9 @@ Rails.application.routes.draw do
   get 'duck/editscript/:id' => 'duck#editscript'
   
   post 'duck/savescript'
-
+  
   get 'duck/deletescript'
+  get 'duck/deletescript/:id' => 'duck#deletescript'
 
   get 'duck/search'
   

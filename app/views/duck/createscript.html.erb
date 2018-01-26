@@ -153,7 +153,7 @@ $("select#player1").change(function(){
  
 function setScriptData() { 
     script='<%if not @duck.nil? %><%=@duck.script%><%end%>'
-	script=HtmlUtil.htmlDecode(script);
+	script=HtmlUtil.htmlDecode(script.replace(/\\n/g, "\n").replace(/\\r/g, "\r"));
 	
 	if(<%if @duck.nil? or not @duck.is_block %><%=0%><%else%><%=1%><%end%>==0){
 		Pond.Duck.changeTab(1);

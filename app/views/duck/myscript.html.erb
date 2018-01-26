@@ -35,9 +35,8 @@
 				<td><%if !d.is_block%><%='是'%><%else%><%='否'%><%end%></td>
 				<td><%=d.win_rate%>%</td>
 				<td><a class='btn btn-warning'  href='javascript:chooseSelfDuck("<%=d.id%>");'>比试</a>
-				<% if d.user.id==session[:user_id]%>
 					<a class='btn btn-success'  href='<%=duck_editscript_path+"/"+d.id.to_s%>'>编辑</a>
-				<%end%>
+					<a class='btn btn-danger'  href='javascript:deleteSelfDuck("<%=d.id%>")'>删除</a>
 				</td>
 				
 				
@@ -137,9 +136,13 @@ function chooseSelfDuck(id){
 	return false;
 }
 
-function editSelfDuck(id){
-	get('<%=duck_editscript_path+"/"%>'+id);
+function deleteSelfDuck(id){
+	if(confirm("确定要删除此脚本吗？")){
+		window.location.href='<%=duck_deletescript_path+"/"%>'+id;
+	}
 	return false;
 }
+
+
 
 </script>

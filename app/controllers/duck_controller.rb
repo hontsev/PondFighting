@@ -39,7 +39,7 @@ class DuckController < ApplicationController
 	@duck.lose_count=0
 	@duck.draw_count=0
 	@duck.name=params[:script_name]
-	@duck.script=params[:script_script]
+	@duck.savescript params[:script_script]
 	
 	
 	if @duck.save

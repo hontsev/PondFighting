@@ -15,4 +15,11 @@ class Duck < ApplicationRecord
 	end
   end
   
+  def savescript(script)
+	script.gsub!(/\r/u,'\\r')
+	script.gsub!(/\n/u,'\\n')
+	self.script=script
+  end
+  
+
 end
