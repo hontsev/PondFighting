@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        脚本列表
+        对战脚本列表
         <small>大家公开的小鸭子脚本</small>
       </h1>
     </section>
@@ -29,7 +29,7 @@
 			<tr>
 				<td><%=d.name%></td>
 				<td><a href='<%=account_info_path+"/"+d.user.id.to_s%>'><%=d.user.nickname%></a></td>
-				<td><%=d.created_at%></td>
+				<td><%=d.updated_at.strftime('%Y-%m-%d %H:%M')%></td>
 				<td><%=d.win_rate%>%</td>
 				<td><a class='btn btn-warning'  href='javascript:chooseSelfDuck("<%=d.id%>");'>比试</a>
 				<% if d.user.id==session[:user_id]%>

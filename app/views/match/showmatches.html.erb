@@ -27,8 +27,8 @@
 			<% for match in @matches %>
 			<tr>
 				<td><a href='<%=account_info_path+"/"+match.user.id.to_s%>'><%=match.user.nickname%></a></td>
-				<td><%=match.created_at%></td>
-				<td><%=match.updated_at%>%</td>
+				<td><%=match.created_at.strftime('%Y-%m-%d %H:%M')%></td>
+				<td><%=match.updated_at.strftime('%Y-%m-%d %H:%M')%>%</td>
 				<td><a class='btn btn-primary'  href='<%=match_showdetail_path+"/"+match.id.to_s%>'>查看详情</a>
 				</td>
 				

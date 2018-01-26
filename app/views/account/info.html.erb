@@ -138,7 +138,7 @@
                         <span class="username">
                           <a href="<%=account_info_path + "/" + log.user.id.to_s %>"><%=log.user.nickname%></a>
                         </span>
-                    <span class="description"><%=log.created_at%></span>
+                    <span class="description"><%=log.created_at.strftime('%Y-%m-%d %H:%M')%></span>
                   </div>
                   <!-- /.user-block -->
                   <p>

@@ -78,7 +78,7 @@ class DuckController < ApplicationController
   def search
     @user=User.find_by(id:session[:user_id])
 	@myducks=@user.ducks
-	@ducks=Duck.where(is_delete:false,is_public:true).order(created_at: :desc)
+	@ducks=Duck.where(is_delete:false,is_public:true).order(updated_at: :desc)
   end
   
     

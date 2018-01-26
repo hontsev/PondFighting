@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        个人脚本列表
+        我的脚本
       </h1>
     </section>
 
@@ -30,7 +30,7 @@
 			<tr>
 				<td><%=d.name%></td>
 				<td><a href='<%=account_info_path+"/"+d.user.id.to_s%>'><%=d.user.nickname%></a></td>
-				<td><%=d.created_at%></td>
+				<td><%=d.updated_at.strftime('%Y-%m-%d %H:%M')%></td>
 				<td><%if d.is_public%><%='是'%><%else%><%='否'%><%end%></td>
 				<td><%if !d.is_block%><%='是'%><%else%><%='否'%><%end%></td>
 				<td><%=d.win_rate%>%</td>
